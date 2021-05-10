@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import Form from './components/Form';
+import Results from './components/Results';
+import { useState } from 'react';
 
 function App() {
+  const [listOfChars, setListOfChars] = useState([]);
+  console.log(listOfChars);
+  const addNew = myChar => {
+    setListOfChars([...listOfChars, myChar]);
+  }
+  const updateIsAlive = idx => {
+    // console.log("Coming to you from App.js!")
+    // console.log(listOfChars[idx]);
+    const charToUpdate = listOfChars[idx];
+    charToUpdate.isAlive = !charToUpdate.isAlive;
+    setListOfChars([...listOfChars]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container-fluid">
+      <h1>List of characters</h1>
+      <div className="row">
+        <Form newChar={addNew}/>
+        <Results myList={listOfChars} updateIsAlive={updateIsAlive}/>
+      </div>
     </div>
   );
 }
